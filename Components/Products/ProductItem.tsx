@@ -10,7 +10,7 @@ export default function ProductItem({ product }: { product: Product }) {
         <Link href={`/product/${product.unique_index}`}>
           <Image
             src={product.images[0]}
-            alt={product.images[0]}
+            alt={product.images[1]}
             width={300}
             height={300}
             className="object-cover h-64 w-full"
