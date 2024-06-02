@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { round2 } from "../utilis";
 import { OrderItem } from "../models/OrderModel";
+import { persist } from "zustand/middleware";
 
 type Cart = {
   items: OrderItem[];
@@ -18,8 +19,15 @@ const initialState: Cart = {
   totalPrice: 0,
 };
 
-//Zustand: Accepts nothing and return initial State
-export const cartStore = create<Cart>(() => initialState);
+// //Zustand: Accepts nothing and return initial State
+// export const cartStore = create<Cart>(() => initialState);
+
+//To Store Data also in Local Storage we use presist (key:cartStore)
+export const cartStore = create<Cart>()(
+  persist(() => initialState, {
+    name: "cartStore",
+  })
+);
 
 //useCartService Hook
 export default function useCartService() {
@@ -81,7 +89,7 @@ export default function useCartService() {
 //To calculate total price
 const calcPrice = (items: OrderItem[]) => {
   const itemsPrice = round2(
-      items.reduce((acc, item) => acc + item.retail_price + item.qty, 0)
+      items.reduce((acc, item) => acc + item.retail_price * item.qty, 0)
     ),
     shippingPrice = round2(itemsPrice > 1000 ? 0 : 1000),
     taxPrice = round2(Number(0.15 * itemsPrice)),
