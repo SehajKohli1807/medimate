@@ -1,6 +1,7 @@
 import data from "@/lib/data";
 import Link from "next/link";
 import Image from "next/image";
+import AddToCart from "@/Components/Products/AddToCart";
 
 export default function ProductDetails({
   params,
@@ -17,7 +18,7 @@ export default function ProductDetails({
       <div className="my-2">
         <Link href="/">Back to Products</Link>
       </div>
-      <div className="grid md:grid-cols-4 md:gap-10">
+      <div className="grid md:grid-cols-4 md:gap-8">
         <div className="md:col-span-2">
           <Image
             src={product.images[0]}
@@ -62,6 +63,31 @@ export default function ProductDetails({
             </li>
             <li>Product Form: {product.form}</li>
           </ul>
+        </div>
+        <div>
+          <div className="card bg-base-300 shadow-xl mt-3 md:mt-0 mb-4">
+            <div className="card-body">
+              <div className="flex mb-2 justify-between">
+                <div>Price</div>
+                <div>Rs. {product.retail_price}</div>
+              </div>
+
+              <div className="flex mb-2 justify-between">
+                <div>Status</div>
+                <div>{product.availability ? "In Stock" : "Unavailable"}</div>
+              </div>
+              {product.availability && (
+                <div className="card-actions justify-center">
+                  <AddToCart
+                    item={{
+                      ...product,
+                      qty: 0,
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -5,7 +5,7 @@ import React from "react";
 
 export default function ProductItem({ product }: { product: Product }) {
   return (
-    <div className="card bg-base-300 shadow-xl mb-4 mt-4">
+    <div className="card bg-base-300 shadow-xl mb-3 mt-3">
       <figure>
         <Link href={`/product/${product.unique_index}`}>
           <Image
