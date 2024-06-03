@@ -1,3 +1,34 @@
+import mongoose from "mongoose";
+
+const productSchema = new mongoose.Schema(
+  {
+    unique_index: { type: Number, required: true, unique: true },
+    _id: { type: String, required: true },
+    source: { type: String, required: true },
+    name: { type: String, required: true },
+    medicine_link: { type: String, required: true },
+    images: { type: [String], required: true },
+    retail_price: { type: Number, required: true },
+    discounted_price: { type: Number, required: true },
+    description: { type: String, required: false },
+    prescription_required: { type: Boolean, required: false },
+    availability: { type: Boolean, required: true },
+    manufacturer: { type: String, required: true },
+    salts: { type: String, required: false },
+    composition: { type: String, required: false },
+    quantity: { type: Number, required: true },
+    form: { type: String, required: false },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const ProductModel =
+  mongoose.models.Product || mongoose.model("Product", productSchema);
+
+export default ProductModel;
+
 export type Product = {
   unique_index: number;
   _id?: string;
